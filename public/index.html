@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Sharing | Main</title>
+</head>
+
+<body>
+  <form id="form">
+    <input name="name" type="text" placeholder="Name">
+    <input name="tags" type="text" placeholder="#Tags">
+    <input name="photo" type="file" id="photoInput">
+    <input type="submit" value="Send photo">
+  </form>
+
+  <script>
+    const form = document.querySelector('#form');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      let response = await fetch('http://localhost:5000/api/v1/photos', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjVjZDliYTJhYjlmMGVjNDk2Y2Q1NSIsImlhdCI6MTYwMDUwNzk5OCwiZXhwIjoxNjAzMDk5OTk4fQ.ZLk91X3yx4OTNiP7qi_mJHKTP1cnjDQGocsNywTqQz0'
+        },
+        body: formData,
+      });
+
+      const res = await response.json();
+
+      console.log(res);
+
+    })
+  </script>
+</body>
+
+</html>
